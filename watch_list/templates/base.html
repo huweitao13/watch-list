@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{% block head %}
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{{ user.name }}'s Watchlist</title>
+	<link rel="icon" href="{{ url_for('static', filename='images/avatar.png') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+	{% endblock head %}
+</head>
+<body>
+	<h2>
+		<img src="{{ url_for('static', filename='images/avatar.png') }}" alt="ASvatar" class="avatar">
+		<span>{{ user.name }}'s Watchlist</span>
+	</h2>	
+	<nav>
+		<ul>
+			<li>
+				<a href="{{ url_for('index') }}">Home</a>
+			</li>
+			{% if current_user.is_authenticated %}
+			<li>
+				<a href="{{ url_for('settings') }}">Settings</a>
+			</li>
+			<li>
+				<a href="{{ url_for('logout') }}">Logout</a>
+			</li>
+			{% else %}
+			<li>
+				<a href="{{ url_for('login') }}">Login</a>
+			</li>
+			{% endif %}
+		</ul>
+	</nav>
+	{% for message in get_flashed_messages() %}
+		<div class="alert">{{ message }}</div>
+	{% endfor %}	
+	{% block content %} {% endblock content %}
+	<footer>
+		<small>&copy; 2020 <a href="https://github.com/Hu-weitao/watch-list">路漫漫我不畏</a></small>
+	</footer>
+</body>
+</html>
